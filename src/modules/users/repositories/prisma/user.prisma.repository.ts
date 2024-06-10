@@ -20,4 +20,12 @@ export default class UserPrismaRepository implements IUserRepository {
       },
     });
   }
+
+  async findById(id: string): Promise<User> {
+    return await this.prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
 }

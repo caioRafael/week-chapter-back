@@ -21,4 +21,26 @@ model User {
   profile  String
 
   avatar String?
+  Book   Book[]
+}
+
+model BookCategory {
+  id         String @unique @default(uuid())
+  category   String @unique
+  descrition String
+  Book       Book[]
+}
+
+model Book {
+  id                String  @unique @default(uuid())
+  title             String
+  sinopse           String
+  cover             String?
+  publishedChapters Int     @default(0)
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  bookCategory   BookCategory @relation(fields: [bookCategoryId], references: [id])
+  bookCategoryId String
 }
