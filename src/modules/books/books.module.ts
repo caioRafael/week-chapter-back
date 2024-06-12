@@ -5,6 +5,7 @@ import { IBookRepository } from './repositories/book.repository';
 import { BookPrismaRepository } from './repositories/prisma/book.prisma.repository';
 import { CreateBookUseCase } from './useCases/create-book.usecase';
 import { ListPaginationBooksUseCase } from './useCases/list-pagination-books.usecase';
+import { FindBookUseCase } from './useCases/find-book.usecase';
 
 @Module({
   imports: [],
@@ -13,6 +14,7 @@ import { ListPaginationBooksUseCase } from './useCases/list-pagination-books.use
     PrismaService,
     CreateBookUseCase,
     ListPaginationBooksUseCase,
+    FindBookUseCase,
     {
       provide: IBookRepository,
       useClass: BookPrismaRepository,

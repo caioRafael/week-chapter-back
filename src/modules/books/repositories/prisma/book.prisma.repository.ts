@@ -19,6 +19,7 @@ export class BookPrismaRepository implements IBookRepository {
   }
 
   async findById(bookId: string): Promise<Book> {
+    console.log(bookId);
     return await this.prismaService.book.findUnique({
       where: {
         id: bookId,
@@ -34,7 +35,7 @@ export class BookPrismaRepository implements IBookRepository {
     page: number,
     limit: number,
   ): Promise<Pagination<Book>> {
-    const offset = (page - 1) * limit;
+    const offset = (Number(page) - 1) * limit;
 
     const pagination = await this.prismaService.book.findMany({
       include: {
@@ -42,7 +43,7 @@ export class BookPrismaRepository implements IBookRepository {
         bookCategory: true,
       },
       skip: offset,
-      take: Number(limit),
+      take: Number(limit) || 20,
     });
 
     const count = await this.prismaService.book.count();
