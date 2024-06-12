@@ -12,7 +12,7 @@ import { CreateUser, CreateUserSwaggerSchema } from './dto/user.dto';
 import { CreateUserUseCase } from './useCases/create-user.usecase';
 import { CreateUserValidationPipe } from './pipe/create-user.validation';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from 'src/infra/providers/auth-guard.provider';
+import { AuthGuard } from '../../infra/providers/auth-guard.provider';
 
 @ApiTags('Users')
 @Controller('/users')
