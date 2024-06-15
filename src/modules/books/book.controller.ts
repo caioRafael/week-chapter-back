@@ -1,16 +1,18 @@
+import { UpdateBookUseCase } from './useCases/update-book.usecase';
 import {
   Body,
   Controller,
   Get,
   Param,
   Post,
+  Put,
   Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CreateBookUseCase } from './useCases/create-book.usecase';
-import { CreateBook, CreateBookSwaggerSchema } from './dto/book';
+import { Book, CreateBook, CreateBookSwaggerSchema } from './dto/book';
 import { AuthGuard } from 'src/infra/providers/auth-guard.provider';
 import { ListPaginationBooksUseCase } from './useCases/list-pagination-books.usecase';
 import { FindBookUseCase } from './useCases/find-book.usecase';
@@ -28,6 +30,7 @@ export class BookController {
     private createBookUseCase: CreateBookUseCase,
     private listPaginationBooksUseCase: ListPaginationBooksUseCase,
     private findbookUseCase: FindBookUseCase,
+    private updateBookUseCase: UpdateBookUseCase,
   ) {}
 
   @Get('/:id')
@@ -59,5 +62,15 @@ export class BookController {
       request.user.sub,
       request.user.profile,
     );
+  }
+
+  @Put()
+  @ApiBearerAuth()
+  @ApiBody({
+    type: CreateBookSwaggerSchema,
+  })
+  @UseGuards(AuthGuard)
+  async update(@Body() data: Book, @Request() request) {
+    return await this.updateBookUseCase.execute(data, request.user.sub);
   }
 }

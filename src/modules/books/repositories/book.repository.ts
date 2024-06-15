@@ -8,4 +8,5 @@ export abstract class IBookRepository {
     page: number,
     limit: number,
   ): Promise<Pagination<Book>>;
+  abstract update(data: Book): Promise<Book>;
 }

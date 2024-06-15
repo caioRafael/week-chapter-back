@@ -14,7 +14,7 @@ export class CreateUserUseCase {
       this.logger.error(`O email ${data.email}, já está cadastrado...`, data);
       throw new HttpException('Usuário já cadastrado', HttpStatus.BAD_REQUEST);
     }
-
+    const test = () => console.log("teste")
     const password = await hash(data.password, 10);
 
     return await this.userRepository.create({
