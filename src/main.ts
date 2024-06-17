@@ -6,6 +6,7 @@ const port = process.env.PORT || 3333;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
 
   const config = new DocumentBuilder()
     .setTitle('Week Chapter')
